@@ -38,12 +38,11 @@ const Modal: React.FC<ModalProps> = ({
 	const handleClose = useCallback(() => {
 		if (disabled) {
 			return;
-		} else {
-			setShowModal(false);
-			setTimeout(() => {
-				onClose();
-			}, 300);
 		}
+		setShowModal(false);
+		setTimeout(() => {
+			onClose();
+		}, 300);
 	}, [disabled, onClose]);
 
 	const handleSubmit = useCallback(() => {
@@ -100,6 +99,7 @@ const Modal: React.FC<ModalProps> = ({
 										disabled={disabled}
 									/>
 								</div>
+								{footer}
 							</div>
 						</div>
 					</div>
