@@ -36,8 +36,8 @@ const UserMenu = () => {
 				<div className='absolute right-0 top-12 w-[40vw] md:w-3/4 bg-white text-sm overflow-hidden rounded-xl shadow-md'>
 					<div className='flex flex-col cursor-pointer'>
 						<>
-							<MenuItem onClick={() => {}} label='Login' />
 							<MenuItem onClick={registerModal.onOpen} label='Sign up' />
+							<MenuItem onClick={() => {}} label='Login' />
 						</>
 					</div>
 				</div>

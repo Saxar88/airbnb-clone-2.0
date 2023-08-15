@@ -66,7 +66,7 @@ const Modal: React.FC<ModalProps> = ({
 	return (
 		<>
 			<div className='fixed inset-0 z-50 flex justify-center items-center overflow-x-hidden overflow-y-auto bg-neutral-800/70 outline-none focus:outline-none'>
-				<div className='relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 h-full md:h-auto lg:h-auto my-6 mx-auto'>
+				<div className='relative w-full md:w-4/6 lg:w-3/6 xl:w-1/3 h-full md:h-auto lg:h-auto my-6 mx-auto'>
 					<div
 						className={`h-full translate duration-300 ${
 							showModal
@@ -80,7 +80,7 @@ const Modal: React.FC<ModalProps> = ({
 									className='absolute left-9 p-1 border-0 hover:opacity-70 transition'>
 									<IoMdClose size={18} />
 								</button>
-								<div className='text-lg font-semibold'>{title}</div>
+								<div className='font-extrabold'>{title}</div>
 							</div>
 							<div className='relative flex-auto p-6'>{body}</div>
 							<div className='flex flex-col gap-2 p-6'>
