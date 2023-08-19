@@ -6,114 +6,124 @@ import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
+
 import useSignUpModal from '@/app/hooks/useSignUpModal';
+import useLogInModal from '@/app/hooks/useLogInModal';
+import { toast } from 'react-hot-toast';
 import Modal from './Modal';
 import Heading from '../Heading';
 import Input from '../inputs/Input';
-import { toast } from 'react-hot-toast';
 import Button from '../Button';
 
 const SignUpModal = () => {
-	const signUpModal = useSignUpModal();
-	const [isLoading, setIsLoading] = useState(false);
+    const signUpModal = useSignUpModal();
+    const logInModal = useLogInModal();
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<FieldValues>({
-		defaultValues: { name: '', email: '', password: '' },
-	});
+    const [isLoading, setIsLoading] = useState(false);
 
-	const onSubmit: SubmitHandler<FieldValues> = (data) => {
-		setIsLoading(true);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FieldValues>({
+        defaultValues: { name: '', email: '', password: '' },
+    });
 
-		axios
-			.post('/api/signup', data)
-			.then(() => {
-				signUpModal.onClose();
-			})
-			.catch((error) => {
-				toast.error('Something went wrong!');
-			})
-			.finally(() => setIsLoading(false));
-	};
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        setIsLoading(true);
 
-	const bodyContent = (
-		<div className='flex flex-col gap-4'>
-			<Heading title='Welcome to Airbnb' subtitle='Create an account!' />
-			<Input
-				id='email'
-				label='Email'
-				disabled={isLoading}
-				signUp={register}
-				errors={errors}
-				required
-			/>
-			<Input
-				id='name'
-				label='Name'
-				disabled={isLoading}
-				signUp={register}
-				errors={errors}
-				required
-			/>
-			<Input
-				id='password'
-				label='Password'
-				type='password'
-				disabled={isLoading}
-				signUp={register}
-				errors={errors}
-				required
-			/>
-		</div>
-	);
+        axios
+            .post('/api/signup', data)
+            .then(() => {
+                signUpModal.onClose();
+            })
+            .catch((error) => {
+                toast.error('Something went wrong!');
+            })
+            .finally(() => setIsLoading(false));
+    };
 
-	const footerContent = (
-		<div className='flex flex-col gap-4 mt-3'>
-			<div className='flex items-center my-4 text-xs'>
-				<div className='block w-full h-px mr-4 bg-[#ddd]'></div>
-				or
-				<div className='block w-full h-px ml-4 bg-[#ddd]'></div>
-			</div>
-			<Button
-				outline
-				label='Continue with Google'
-				icon={FcGoogle}
-				onClick={() => signIn('google')}
-			/>
-			<Button
-				outline
-				label='Continue with GitHub'
-				icon={AiFillGithub}
-				onClick={() => signIn('github')}
-			/>
-			<div className='mt-4 text-center text-neutral-500 font-light'>
-				<div className='flex flex-row items-center justify-center gap-2'>
-					<div>Already have an account?</div>
-					<div
-						onClick={signUpModal.onClose}
-						className='text-neutral-800 cursor-pointer hover:underline'>
-						Log in
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+    const toggle = useCallback(() => {
+        signUpModal.onClose();
+        logInModal.onOpen();
+    }, [logInModal, signUpModal]);
 
-	return (
-		<Modal
-			disabled={isLoading}
-			isOpen={signUpModal.isOpen}
-			title='Sign up'
-			actionLabel='Continue'
-			onClose={signUpModal.onClose}
-			onSubmit={handleSubmit(onSubmit)}
-			body={bodyContent}
-			footer={footerContent}
-		/>
-	);
+    const bodyContent = (
+        <div className='flex flex-col gap-4'>
+            <Heading title='Welcome to Airbnb' subtitle='Create an account!' />
+            <Input
+                id='email'
+                label='Email'
+                disabled={isLoading}
+                signUp={register}
+                errors={errors}
+                required
+            />
+            <Input
+                id='name'
+                label='Name'
+                disabled={isLoading}
+                signUp={register}
+                errors={errors}
+                required
+            />
+            <Input
+                id='password'
+                label='Password'
+                type='password'
+                disabled={isLoading}
+                signUp={register}
+                errors={errors}
+                required
+            />
+        </div>
+    );
+
+    const footerContent = (
+        <div className='flex flex-col gap-4 mt-3'>
+            <div className='flex items-center my-4 text-xs'>
+                <div className='block w-full h-px mr-4 bg-[#ddd]'></div>
+                or
+                <div className='block w-full h-px ml-4 bg-[#ddd]'></div>
+            </div>
+            <Button
+                outline
+                label='Continue with Google'
+                icon={FcGoogle}
+                onClick={() => signIn('google')}
+            />
+            <Button
+                outline
+                label='Continue with GitHub'
+                icon={AiFillGithub}
+                onClick={() => signIn('github')}
+            />
+            <div className='mt-4 text-center text-neutral-500 font-light'>
+                <div className='flex flex-row items-center justify-center gap-2'>
+                    <div>Already have an account?</div>
+                    <div
+                        onClick={toggle}
+                        className='text-neutral-800 cursor-pointer hover:underline'
+                    >
+                        Log in
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    return (
+        <Modal
+            disabled={isLoading}
+            isOpen={signUpModal.isOpen}
+            title='Sign up'
+            actionLabel='Continue'
+            onClose={signUpModal.onClose}
+            onSubmit={handleSubmit(onSubmit)}
+            body={bodyContent}
+            footer={footerContent}
+        />
+    );
 };
 
 export default SignUpModal;
