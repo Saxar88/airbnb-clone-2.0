@@ -1,0 +1,74 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+import { IconType } from 'react-icons';
+
+import useCountries from '@/app/hooks/useCountries';
+import { SafeUser } from '@/app/types';
+import Avatar from '../Avatar';
+import ListingCategory from './ListingCategory';
+
+const Map = dynamic(() => import('../Map'), {
+	ssr: false,
+});
+
+interface ListingInfoProps {
+	user: SafeUser;
+	description: string;
+	guestCount: number;
+	roomCount: number;
+	bathroomCount: number;
+	category: { icon: IconType; label: string; description: string } | undefined;
+	locationValue: string;
+}
+
+const ListingInfo: React.FC<ListingInfoProps> = ({
+	user,
+	description,
+	guestCount,
+	roomCount,
+	bathroomCount,
+	category,
+	locationValue,
+}) => {
+	const { getByValue } = useCountries();
+	const coordinates = getByValue(locationValue)?.latlng;
+
+	return (
+		<div className='col-span-4 flex flex-col gap-4'>
+			<div className='flex flex-row justify-between'>
+				<div className='flex flex-col gap-2'>
+					<div className='flex flex-row items-center text-xl font-semibold'>
+						Hosted by {user?.name}
+					</div>
+					<div className='flex flex-row items-center gap-1 font-light'>
+						<div>{guestCount > 1 ? `${guestCount} guests` : '1 guest'}</div>
+						<span>·</span>
+						<div>{roomCount > 1 ? `${roomCount} rooms` : '1 room'}</div>
+						<span>·</span>
+						<div>
+							{bathroomCount > 1 ? `${bathroomCount} bathrooms` : '1 bathroom'}
+						</div>
+					</div>
+				</div>
+				<div>
+					<Avatar src={user?.image} />
+				</div>
+			</div>
+			<hr />
+			{category && (
+				<ListingCategory
+					icon={category.icon}
+					label={category.label}
+					description={category.description}
+				/>
+			)}
+			<hr />
+			<div className='text-lg font-light'>{description}</div>
+			<hr />
+			<Map center={coordinates} />
+		</div>
+	);
+};
+
+export default ListingInfo;

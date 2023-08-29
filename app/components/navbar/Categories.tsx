@@ -7,6 +7,7 @@ import {
 	GiBarn,
 	GiBoatFishing,
 	GiCactus,
+	GiCandleHolder,
 	GiCastle,
 	GiCaveEntrance,
 	GiForestCamp,
@@ -22,9 +23,19 @@ import Container from '../Container';
 
 export const categories = [
 	{
+		label: 'Luxe',
+		icon: IoDiamond,
+		description: 'This property is luxurious!',
+	},
+	{
 		label: 'Beach',
 		icon: TbBeach,
 		description: 'This property is close to the beach!',
+	},
+	{
+		label: 'Camping',
+		icon: GiForestCamp,
+		description: 'This property has camping activities!',
 	},
 	{
 		label: 'Windmills',
@@ -32,9 +43,9 @@ export const categories = [
 		description: 'This property has windmills!',
 	},
 	{
-		label: 'Modern',
-		icon: MdOutlineVilla,
-		description: 'This property is modern!',
+		label: 'Historical homes',
+		icon: GiCandleHolder,
+		description: 'This property is an old building!',
 	},
 	{
 		label: 'Countryside',
@@ -67,11 +78,6 @@ export const categories = [
 		description: 'This property is in a castle!',
 	},
 	{
-		label: 'Camping',
-		icon: GiForestCamp,
-		description: 'This property has camping activities!',
-	},
-	{
 		label: 'Arctic',
 		icon: BsSnow,
 		description: 'This property is in an arctic area!',
@@ -92,9 +98,9 @@ export const categories = [
 		description: 'This property is in a barn!',
 	},
 	{
-		label: 'Luxe',
-		icon: IoDiamond,
-		description: 'This property is luxurious!',
+		label: 'Modern',
+		icon: MdOutlineVilla,
+		description: 'This property is modern!',
 	},
 ];
 
