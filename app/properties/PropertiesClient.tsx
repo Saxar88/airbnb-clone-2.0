@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
 
-import Container from '../components/Container';
-import Heading from '../components/Heading';
-import ListingCard from '../components/listings/ListingCard';
-import { SafeListing, SafeUser } from '../types';
+import Container from "../components/Container";
+import Heading from "../components/Heading";
+import ListingCard from "../components/listings/ListingCard";
+import { SafeListing, SafeUser } from "../types";
 
 interface PropertiesClientProps {
 	listings: SafeListing[];
@@ -20,7 +20,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
 	currentUser,
 }) => {
 	const router = useRouter();
-	const [deletingId, setDeletingId] = useState('');
+	const [deletingId, setDeletingId] = useState("");
 
 	const onDelete = useCallback(
 		(id: string) => {
@@ -29,14 +29,14 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
 			axios
 				.delete(`/api/listings/${id}`)
 				.then(() => {
-					toast.success('Listing deleted!');
+					toast.success("Listing deleted!");
 					router.refresh();
 				})
 				.catch((error) => {
 					toast.error(error?.response?.data?.error);
 				})
 				.finally(() => {
-					setDeletingId('');
+					setDeletingId("");
 				});
 		},
 		[router]
@@ -45,7 +45,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
 	return (
 		<Container>
 			<Heading title="Properties" subtitle="List of your properties" />
-			<div className="grid grid-cols-1 sm:grid-cold-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mt-10 gap-8">
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mt-10 gap-8">
 				{listings.map((listing: any) => (
 					<ListingCard
 						key={listing.id}
