@@ -34,14 +34,14 @@ try:
         (By.XPATH, "//*[text()='Logged in successfully!']")))
 
     time.sleep(0.5)
-    driver.find_element(
-        "xpath", "/html[1]/body[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/*[name()='svg'][1]").click()
+    first_listing_heart_button = driver.find_element(
+        "xpath", "/html[1]/body[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/*[name()='svg'][1]")
+    first_listing_heart_button.click()
     wait.until(EC.invisibility_of_element_located(
         (By.XPATH, "//*[text()='Favorite updated!']")))
 
     time.sleep(0.5)
-    driver.find_element(
-        "xpath", "/html[1]/body[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/*[name()='svg'][1]").click()
+    first_listing_heart_button.click()
     wait.until(EC.invisibility_of_element_located(
         (By.XPATH, "//*[text()='Favorite updated!']")))
 
